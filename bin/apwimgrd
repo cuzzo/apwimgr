@@ -1,0 +1,55 @@
+#! /bin/bash
+
+# Ensure pid file exists.
+PID_DIR=/var/run/apwimgr
+PID_FILE=$PID_DIR/apwimgrd.pid
+mkdir -p $PID_DIR
+if [ ! -f $PID_FILE ] ; then
+    touch $PID_FILE
+fi
+
+PID=$(cat $PID_FILE)
+
+exec=$(cat /etc/apwimgr/apwimgr.conf | grep net_monitor_path | sed -e "s/net_monitor_path=//")
+
+apwimgr_start() {
+    $exec > /dev/null 2>&1 &
+    PID=$!
+    echo "$PID" > $PID_FILE
+}
+
+apwimgr_stop() {
+    kill $PID > /dev/null 2>&1
+    res=$?
+    rm -f $PID_FILE
+    return $res
+}
+
+case "$1" in
+start)
+    if (( $PID )) ; then
+        echo "Process is already running." >&2
+        exit 1
+    fi
+    apwimgr_start
+;;
+stop)
+    if ! (( $PID )) ; then
+        echo "Process is not running." >&2
+        exit 1
+    fi
+    if ! apwimgr_stop ; then
+        echo "Could not send SIGTERM to process $PID." >&2
+        exit 1
+    fi
+;;
+restart)
+    apwimgr_stop
+    apwimgr_start
+;;
+*)
+    echo "Service"
+    echo $"Usage: $0 {start|stop|restart}"
+    exit 1
+esac
+exit 0
