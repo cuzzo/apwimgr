@@ -26,7 +26,7 @@ def get_ssid_select(network_list):
 def index():
     ssid_select = get_ssid_select(NETWORKS)
     body = """
-            <h1>AKU</h1>
+            <h1>Access Point Wireless Manager</h1>
             <form action="/connect" method="post">
                 SSID: {0}
                 Password: <input name="password" type="password" />
@@ -48,12 +48,12 @@ def connect():
 
     if netutils.is_connected(4):
         body = """
-                <h1>AKU</h1>
+                <h1>Access Point Wireless Manager</h1>
                 <p>Thank you! I am connecting now.</p>
             """
     else:
         body = """
-                <h1>AKU</h1>
+                <h1>Access Point Wireless Manager</h1>
                 <p>Unable to connect. Try again.</p>
             """
     return BASE_TPL.render(title="AP Network Manager", body=body)
