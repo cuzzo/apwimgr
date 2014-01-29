@@ -10,7 +10,6 @@ NetworkManager
 dnsmasq
 hostapd
 
-
 License
 -------
 
