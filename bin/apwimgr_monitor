@@ -4,10 +4,9 @@ import os
 import subprocess
 import time
 
-import netutils
-import net_server
+import apwimgr.netutils as netutils
 
-# Globals
+
 class Monitor(object):
     def __init__(self):
         settings = netutils.get_settings()
@@ -16,16 +15,17 @@ class Monitor(object):
         self.mgr = None
         self.broadcasting = False
         self.interface = netutils.get_interface()
-        self.ap_path = settings.get("ap_path")
-        self.net_server_path = settings.get("net_server_path")
+        self.ap_host_path = settings.get("ap_host_path")
+        self.apwimgr_server_path = settings.get("apwimgr_server_path")
 
     def start_manager(self):
         if self.mgr is not None:
             try:
                 self.mgr.kill()
             except:
+                print "CANNOT START"
                 pass
-        self.mgr = subprocess.Popen([self.net_server_path],
+        self.mgr = subprocess.Popen([self.apwimgr_server_path],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
 
@@ -41,7 +41,8 @@ class Monitor(object):
                 os.system("killall -9 dnsmasq")
             except:
                 pass
-        self.ap = subprocess.Popen([self.ap_path, self.interface, "eth0"],
+        self.ap = subprocess.Popen([self.ap_host_path, self.interface,
+                                    "eth0"],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
         self.broadcasting = True

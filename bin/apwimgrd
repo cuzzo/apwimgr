@@ -10,7 +10,7 @@ fi
 
 PID=$(cat $PID_FILE)
 
-exec=$(cat /etc/apwimgr/apwimgr.conf | grep net_monitor_path | sed -e "s/net_monitor_path=//")
+exec=$(cat /etc/apwimgr/apwimgr.conf | grep apwimgr_monitor_path | sed -e "s/apwimgr_monitor_path=//")
 
 apwimgr_start() {
     $exec > /dev/null 2>&1 &

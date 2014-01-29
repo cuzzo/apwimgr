@@ -5,7 +5,7 @@ import sys
 
 from bottle import Bottle, run, request, static_file, SimpleTemplate
 
-import netutils as netutils
+import apwimgr.netutils as netutils
 
 app = Bottle()
 
