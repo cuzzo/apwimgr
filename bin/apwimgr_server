@@ -74,7 +74,7 @@ LAST_NETWORK = netutils.get_last_network()
 
 
 def main():
-    run(app, host="localhost", port="8088")
+    run(app, host="localhost", port=SETTINGS.get("apwimgr_server_port"))
 
 if __name__ == "__main__":
     main()
