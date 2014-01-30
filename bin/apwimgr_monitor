@@ -21,7 +21,7 @@ class Monitor(object):
     def start_manager(self):
         if self.mgr is not None:
             try:
-                self.mgr.kill()
+                self.mgr.terminate()
             except:
                 print "CANNOT START"
                 pass
@@ -31,14 +31,13 @@ class Monitor(object):
 
     def stop_manager(self):
         if self.mgr is not None and self.mgr.poll() is None:
-            self.mgr.kill()
+            self.mgr.terminate()
         self.mgr = None
 
     def start_access_point(self):
         if self.ap is not None:
             try:
-                self.ap.kill()
-                os.system("killall -9 dnsmasq")
+                self.ap.terminate()
             except:
                 pass
         self.ap = subprocess.Popen([self.ap_host_path, self.interface,
@@ -50,11 +49,7 @@ class Monitor(object):
     def stop_access_point(self):
         if self.ap is not None:
             if self.ap.poll() is None:
-                self.ap.kill()
-            try:
-                os.system("killall -9 dnsmasq")
-            except:
-                pass
+                self.ap.terminate()
         self.ap = None
         self.broadcasting = False
 
