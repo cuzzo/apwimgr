@@ -10,6 +10,11 @@ NetworkManager
 dnsmasq
 hostapd
 
+Installation
+------------
+
+After you have installed the dependencies, run `./install.sh`.
+
 Setup
 -----
 
