@@ -58,6 +58,17 @@ def connect():
             """
     return BASE_TPL.render(title="AP Network Manager", body=body)
 
+@app.route("/networks/refresh")
+def refresh_networks():
+    NETWORKS = netutils.get_networks(INTERFACE)
+
+    body = """
+            <h1>Access Point Wireless Manager</h1>
+	    <p>Wireless networks have been refreshed.</p>
+        """
+
+    return BASE_TPL.render(title="AP Network Manager", body=body)
+
 @app.route("/static/<filepath:path>")
 def server_static(filepath):
     net_path = os.path.join(BASE_PATH, "static")
