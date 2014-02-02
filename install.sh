@@ -16,7 +16,7 @@ ln -s $INITDP /etc/rc6.d/$SKILL
 
 # Create conf.
 mkdir /etc/apwimgr
-cp apwimgrd.conf /etc/apwimgr/
+cp apwimgr.conf /etc/apwimgr/
 
 # Create var.
 mkdir /usr/share/apwimgr
@@ -24,9 +24,9 @@ cp -R static /usr/share/apwimgr/
 cp -R tpl /usr/share/apwimgr/
 
 # Create bin.
-cp ap_host /usr/bin/local/
+cp ap_host /usr/local/bin/
 cp apwimgr_monitor /usr/sbin/
-cp apwimgr_server /usr/bin/local/
+cp apwimgr_server /usr/local/bin/
 
 # Python install.
 pip install apwimgr
